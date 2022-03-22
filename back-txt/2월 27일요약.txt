@@ -1,0 +1,66 @@
+포트폴리오 제작시 제작과정. (개인포트폴리오 검색, 참조)
+a링크는 Tap로 포커스를 위치시킬 수 있다.
+
+()=>{} > 이크마 스크립트?
+
+https://yeonghoonpark.github.io/megabox/
+https://yeonghoonpark.github.io/paikdabang/
+https://yeonghoonpark.github.io/hollys/
+https://yeonghoonpark.github.io/travel/
+https://yeonghoonpark.github.io/indigo-mobile/
+
+AOS
+https://michalsnik.github.io/aos/
+
+Bootstrap
+
+web standard (웹 표준)
+문서 = HTML
+모양 = CSS
+기능 = jS
+ 이 3가지는 웹 표준으로 웹을 만들 때 위의 3가지를 만들어서
+ 사용하자고 약속한 것, 하지만 이는 시간이 많이 들어가고 효율
+ 성면에서 좋지 않기 때문에 그 외에 여러가지가 등장했다.
+ 그 중 하나는 부트스트랩
+-> 프레임워크(Bootstrap, 무료, twitter에서 개발)
+ boot + strap 부츠꼬리, 기본 엘리먼트에 클래스명에+꼬리가
+ 붙어있는 형식 (부츠스트랩은 모바일 우선이다)
+
+row = flex박스
+
+section의 시멘틱태그 안에서 타이틀을 의미하는 h태그는 인터
+ 페이스에서 나오지 않더라도 꼭 넣어줘야 한다
+
+
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+
+querySelector은 배열이 아니라 단 하나의 객체만 불러온다
+querySelectorAll은 배열이기 때문에 여러개의 객체를 불러온다
+
+mouseover와 mouseout은 자식요소까지 영향을 미치지 못한다
+ mouseenter, mouseleave는 자식요소까지 확장되는 개념이다
+
+em은 부모에게 상속된 글자의 글꼴이 기준
+rem은 루트에서 지정된 글꼴이 기준
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

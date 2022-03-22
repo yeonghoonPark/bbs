@@ -1,0 +1,76 @@
+1. MySQL 완전히 삭제
+ - Ctrl + Shift + ESC = 작업관리자 - 서비스에서 MySQL80 중지 
+ - 검색 서비스 앱 , MySQL80 에서 속성 - 시작 유형에서 사용 안함
+ - 검색 레지스트리 편집기 앱 - 찾기 - MySQL 찾은 후 삭제 이후에 제어판에서 mysql 삭제
+
+2. MySQL 설치
+
+3. JDK 설치
+ - 구글에서 JDK download 검색
+ - java downloads / oracle
+ - 메인에서 Linux mac Windows중에 windows, x64 installer 다운로드
+  (만약 installer로 설치가 안된다면 "x64 compressed archive" 다운 후 압축 풀고,
+   c드라이브에 programfiles안에 java폴더 만들고 압축 푼 것을 그대로 붙여넣기 )
+ - 다운 후 실행 기본, 즉 next - next
+ - cmd -> 
+
+cmd 명령어
+ - cd (체인지디렉토리), 즉 디렉토리간 이동시 사용
+ - cd.  (현재 위치)
+ - cd.. (한단계 위 이동)
+ - cd\ (최상위 이동)
+ - .. 은 한단계 위
+ - dir 은 디렉토리 보는 법
+ - cls 는 화면 지우기 (clearscreen)
+ 방향기 ↑↓ 는 내가 입력했던 타이핑
+ - mkdir ex : ex라는 디렉토리 생성
+ - rmdir ex : ex라는 디렉토리 삭제
+
+4. JAVA-HOME, path 설정 (하는 이유는 어디에서든 java -version을 사용하려고)
+ 탐색기에서 설정 - 시스템 - 정보 - (우측) 관련설정에서 '고급 시스템 설정' - 고급 - '환경 변수'
+ main에 대한 사용변수 또는 시스템변수에서 새로만들기 - 새 시스템 변수 - 
+ 변수이름 : JAVA_HOME (이것은 정해진 것이기 때문에 꼭 똑같이 사용) - 
+ 변수 값은 C:\Program Files\Java\jdk-17.0.2 (즉, 자바가 설치되어 있는 경로)
+ 
+ 탐색기에서 설정 - 시스템 - 정보 - (우측) 관련설정에서 '고급 시스템 설정' - 고급 - '환경 변수'
+ main에 대한 사용변수 또는 시스템변수에서 새로만들기 - 새 시스템 변수 에서 편집 -
+ 새로만들기 - %JAVA_HOME%\bin - 확인
+
+5. 서버설치(Apache Tomcat)
+ - Apache Tomcat 검색 - Apache Tomcat® - Welcome!
+ - Download, Tomcat10 
+ - 64-bit Windows zip (pgp, sha512)
+ - 다운로드 후 압축만 풀어도 설치가 끝남
+ - bin이동
+ - service.bat(bat가 안보일 수 있음) - 더블클릭 후 실행, 만약 안된다면 cmd에서
+ - cmd에서 cd C:\Users\6-9\Downloads\apache-tomcat-10.0.18-windows-x64\apache-tomcat-10.0.18\bin
+ - cmd에서 service.bat install
+ - cmd에서 startup
+ - 브라우저에서 https://localhost:8080/ 에 연결이 된다면 성공
+
+6. IDE eclipse 다운로드
+ - eclipse 검색 - Eclipse Downloads | The Eclipse Foundation
+ - Download x86_64
+ - ECLIPSE IDE for enterprise java and web developers - install
+
+지우고 싶다면 .eclipse, .p2, eclipse, eclips-workspace 를 삭제하고 다시 설치하면 된다
+
+c드라이브에 jsp폴더 생성 (작업 할 폴더)
+ 그리고 다운로드했던 아파치톰캣 "apache-tomcat-10.0.18" 을 jsp폴더로 이동
+ 그리고 project폴더 생성 (작업 할 폴더)
+ 그리고 사용자에 설치된 eclipse의 4개 시리즈중에 eclipse라는 폴더만 project라는 폴더에 옮겨놓자
+ 그리고 wrokspace의 경로는 project의 폴더로 설정해놓자
+
+7. 이클립스 실행 후 create a mynamic web project
+ - 원하는 제목 수업에선 bbs
+ - target runtime에서 new runtime -> apache tomcat v10.0 ->tomcat설치 폴더 지정
+
+8. bbs -> src -> main ->webapp이동 후 jsp파일 새로 만들기 -> index.jsp
+  - charset= 부분을 utf-8로 수정
+이클립스에서는 주석 'ctrl + shift + /' , 해제는  'ctrl + shift + \'
+
+
+
+
+
+

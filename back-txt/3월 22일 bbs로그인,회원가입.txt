@@ -1,0 +1,11 @@
+class 이름의 첫글자는 대문자로 하는 것이 약속이다 ex) User
+
+programfiles x 86에 mysql -> 'connector j 8.0' ->
+ 'mysql-connector-java-8.0.28' 복사 후
+ 작업할 bbs파일의 'src' -> 
+ 'main' -> 
+ 'webapp' -> 
+ 'WEB-INF' -> 
+ 'lib'에 붙여넣기
+
+gitgub에서 다운 후, bbs폴더(작업폴더)에  src 파일만 덮어쓰기, F5키
