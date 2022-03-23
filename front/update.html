@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -60,41 +58,6 @@
             margin:0 auto;
             padding:36px 16px;
         }
-        .main-sec .contents{
-            max-width:320px;
-            max-width:1200px;
-            margin:0 auto;
-            border-radius:10px;
-            padding:36px;
-            background-color:#c0c0c0;
-        }
-        
-        @media (min-width:640px) {
-            .main-sec .contents{
-                width:560px;
-            }
-        }
-        @media (min-width:768px) {
-            .main-sec .contents{
-                width:640px;
-            }
-        }
-        @media (min-width:960px) {
-            .main-sec .contents{
-                width:840px;
-            }
-        }
-        @media (min-width:1200px) {
-            .main-sec .contents{
-                width:1180px;
-            }
-        }
-        @media (min-width:1680px) {
-            .main-sec .contents{
-                width:100%;
-            }
-        }
-
         .sec-tit{
             margin-bottom:32px;
             font-weight:700;
@@ -102,40 +65,43 @@
             color:#333;
             text-align:center;
         }
-        .sec form>div{
-            margin-bottom:16px;
+        .table{
+            margin-bottom:24px;
+            border-top:2px solid #333;
+            border-bottom:2px solid #333;
         }
-        .sec form>div.g-btn{
-            margin-bottom:0;
+        .n-tit{
+            margin-bottom:24px;
+            border-bottom:1px solid #333;
         }
-        .sec input{
-            display:inline-block;
+        #noticeTit,#noticeContent{
             width:100%;
-            padding:6px 10px;
-            font-weight:500;
+            padding:16px;
             font-size:20px;
-            color:#333;
         }
-        .sec input::placeholder{
-            color:#333;
+        #noticeTit{
+            font-weight:700;
+            border:none;
+        }
+        #noticeContent{
+            height:300px;
+            border:none;
         }
         .g-btn{
             display:flex;
             flex-flow:row nowrap;
-            justify-content:space-between;
-        }
-        .g-btn input{
-            width:calc(50% - 8px);
-            border:none;
-            color:#fff;
+            justify-content:flex-end;
         }
         input[type="submit"]{
-            background-color:darkred;
-        }
-        input[type="reset"]{
+            margin-left:16px;
+            border-radius:8px;
+            padding:8px;
             background-color:darkgreen;
+            font-weight:500;
+            font-size:20px;
+            color:#fff
         }
-
+        
         /* footer */
         .footer{
             background-color:#ccc;
@@ -147,8 +113,6 @@
             color:#fff;
             text-align:center;
         }
-
-
     </style>
 </head>
 <body>
@@ -161,37 +125,45 @@
                     <ul class="glb-nav">
                         <li class="nav-left">
                             <ul>
-                                <li class="logo"><a href="./main.jsp">게시판 만들기</a></li>
-                                <li><a href="./main.jsp">메인</a></li>
-                                <li><a href="./notice.jsp">게시판</a></li>
+                                <li class="logo"><a href="./main.html">게시판 만들기</a></li>
+                                <li><a href="./main.html">메인</a></li>
+                                <li><a href="./notice.html" class="active">게시판</a></li>
                             </ul>
                         </li>
                         <li class="nav-right">
                             <ul>
-                                <li><a href="./login.jsp" class="active">로그인</a></li>
+                                <li><a href="./login.html">로그인</a></li>
                                 <li><a href="#" style="display:none;">로그아웃</a></li>
-                                <li><a href="./join.jsp">회원가입</a></li>
+                                <li><a href="./join.html">회원가입</a></li>
                             </ul>
                         </li>
                     </ul>
                 </nav>
             </div>
         </header>
-        <!-- main_sec -->
+        <!-- main-sec -->
         <section class="sec main-sec">
             <div class="container">
-                <div class="contents">
-                    <div class="sec-tit">로그인</div>
+                <div class="contents clearfix">
+                    <div class="sec-tit">글수정</div>
                     <form action="#" method="post">
-                        <div class="u-id">
-                            <input type="text" name="userID" id="userID" placeholder="아이디">
-                        </div>
-                        <div class="u-pass">
-                            <input type="password" name="userPassword" id="userPassword" placeholder="비밀번호">
+                        <div class="table">
+                            <div class="n-tit">
+                                제목
+                                <br>
+                                <input type="text" name="noticeTit" id="noticeTit" value="문의 드립니다.">
+                            </div>
+                            <div class="n-content">
+                                내용
+                                <br>
+                                <textarea name="noticeContent" id="noticeContent">
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora non sint necessitatibus distinctio, temporibus totam nemo quibusdam repellendus et similique dolores vitae deserunt dolore voluptatibus. Libero labore ipsa laborum nobis.
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora non sint necessitatibus distinctio, temporibus totam nemo quibusdam repellendus et similique dolores vitae deserunt dolore voluptatibus. Libero labore ipsa laborum nobis.
+                                </textarea>
+                            </div>
                         </div>
                         <div class="g-btn">
-                            <input type="submit" value="로그인">
-                            <input type="reset" value="취소">
+                            <input type="submit" value="수정 완료">
                         </div>
                     </form>
                 </div>

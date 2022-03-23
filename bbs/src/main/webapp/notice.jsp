@@ -60,41 +60,6 @@
             margin:0 auto;
             padding:36px 16px;
         }
-        .main-sec .contents{
-            max-width:320px;
-            max-width:1200px;
-            margin:0 auto;
-            border-radius:10px;
-            padding:36px;
-            background-color:#c0c0c0;
-        }
-        
-        @media (min-width:640px) {
-            .main-sec .contents{
-                width:560px;
-            }
-        }
-        @media (min-width:768px) {
-            .main-sec .contents{
-                width:640px;
-            }
-        }
-        @media (min-width:960px) {
-            .main-sec .contents{
-                width:840px;
-            }
-        }
-        @media (min-width:1200px) {
-            .main-sec .contents{
-                width:1180px;
-            }
-        }
-        @media (min-width:1680px) {
-            .main-sec .contents{
-                width:100%;
-            }
-        }
-
         .sec-tit{
             margin-bottom:32px;
             font-weight:700;
@@ -102,38 +67,39 @@
             color:#333;
             text-align:center;
         }
-        .sec form>div{
-            margin-bottom:16px;
+        .table{
+            margin-bottom:24px;
+            border-top:2px solid #333;
+            border-bottom:2px solid #333;
         }
-        .sec form>div.g-btn{
-            margin-bottom:0;
+        .theader{
+            border-bottom:1px solid #333;
         }
-        .sec input{
-            display:inline-block;
-            width:100%;
-            padding:6px 10px;
-            font-weight:500;
-            font-size:20px;
-            color:#333;
-        }
-        .sec input::placeholder{
-            color:#333;
-        }
-        .g-btn{
+        .theader,.tbody{
             display:flex;
             flex-flow:row nowrap;
-            justify-content:space-between;
+            padding:16px 0;
         }
-        .g-btn input{
-            width:calc(50% - 8px);
-            border:none;
-            color:#fff;
+        .theader>div,.tbody>div{
+            text-align:center;
         }
-        input[type="submit"]{
-            background-color:darkred;
+        .col-2{
+            flex:2;
         }
-        input[type="reset"]{
+        .col-6{
+            flex:6;
+        }
+        .notice-tit{
+            text-align:left !important;
+        }
+        button{
+            float:right;
+            border-radius:8px;
+            padding:8px;
             background-color:darkgreen;
+            font-weight:500;
+            font-size:20px;
+            color:#fff
         }
 
         /* footer */
@@ -147,8 +113,6 @@
             color:#fff;
             text-align:center;
         }
-
-
     </style>
 </head>
 <body>
@@ -163,12 +127,12 @@
                             <ul>
                                 <li class="logo"><a href="./main.jsp">게시판 만들기</a></li>
                                 <li><a href="./main.jsp">메인</a></li>
-                                <li><a href="./notice.jsp">게시판</a></li>
+                                <li><a href="./notice.jsp" class="active">게시판</a></li>
                             </ul>
                         </li>
                         <li class="nav-right">
                             <ul>
-                                <li><a href="./login.jsp" class="active">로그인</a></li>
+                                <li><a href="./login.jsp">로그인</a></li>
                                 <li><a href="#" style="display:none;">로그아웃</a></li>
                                 <li><a href="./join.jsp">회원가입</a></li>
                             </ul>
@@ -180,20 +144,25 @@
         <!-- main_sec -->
         <section class="sec main-sec">
             <div class="container">
-                <div class="contents">
-                    <div class="sec-tit">로그인</div>
-                    <form action="#" method="post">
-                        <div class="u-id">
-                            <input type="text" name="userID" id="userID" placeholder="아이디">
+                <div class="contents clearfix">
+                    <div class="sec-tit">게시판</div>
+                    <div class="table">
+                        <div class="theader">
+                            <div class="col-tit col-2">번호</div>
+                            <div class="col-tit col-6">제목</div>
+                            <div class="col-tit col-2">작성일</div>
+                            <div class="col-tit col-2">작성자</div>
                         </div>
-                        <div class="u-pass">
-                            <input type="password" name="userPassword" id="userPassword" placeholder="비밀번호">
+                        <div class="tbody">
+                            <div class="notice-num col-2">1</div>
+                            <div class="notice-tit col-6">
+                                <a href="./read.jsp">문의 드립니다.</a>
+                            </div>
+                            <div class="notice-date col-2">2022-03-23</div>
+                            <div class="notice-name col-2">111111</div>
                         </div>
-                        <div class="g-btn">
-                            <input type="submit" value="로그인">
-                            <input type="reset" value="취소">
-                        </div>
-                    </form>
+                    </div>
+                    <button type="button"><a href="./write.jsp">글쓰기</a></button>
                 </div>
             </div>
         </section>
