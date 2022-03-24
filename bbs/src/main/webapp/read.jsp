@@ -1,153 +1,76 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import = "java.io.PrintWriter" %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>웹 게시판</title>
+    <title>웹게시판</title>
+    <link rel="stylesheet" href="./css/read.css">
     <style>
-        *{box-sizing:border-box;margin:0;padding:0;}
-        ul,ol,li{list-style:none;}
-        a{color:inherit;text-decoration:none;}
-        img{width:100%;vertical-align:top;}
-        .clearfix::after{content:'';display:block;clear:both;}
+        
 
-        /* header */
-        .header{
-            background-color:#ccc;
-        }
-        .header .container{
-            width:100%;
-            max-width:1200px;
-            margin:0 auto;
-            padding:16px;
-        }
-        .glb-nav,.glb-nav ul{
-            display:flex;
-            flex-flow:row nowrap;
-            justify-content:space-between;
-            align-items:flex-end;
-        }
-        .nav-left li{
-            margin-right:32px;
-        }
-        .nav-left li.logo{
-            font-size:32px;
-            font-weight:700;
-            color:#fff;
-        }
-        .nav-right li{
-            margin-right:32px;
-        }
-        .glb-nav ul li{
-            font-size:24px;
-            font-weight:500;
-            color:#333;
-        }
-        .glb-nav ul a:hover{
-            color:#fff;
-        }
-        .active{
-            background-color:lightgreen !important;
-            color:#fff !important;
-        }
-
-        /* main-sec */
-        .main-sec .container{
-            max-width:1200px;
-            margin:0 auto;
-            padding:36px 16px;
-        }
-        .sec-tit{
-            margin-bottom:32px;
-            font-weight:700;
-            font-size:32px;
-            color:#333;
-            text-align:center;
-        }
-        .table{
-            margin-bottom:24px;
-            border-top:2px solid #333;
-            border-bottom:2px solid #333;
-        }
-        .n-tit{
-            margin-bottom:24px;
-            border-bottom:1px solid #333;
-            padding:24px 0;
-        }
-        #noticeTit,#noticeContent{
-            width:100%;
-            padding:16px;
-            font-size:20px;
-        }
-        #noticeTit{
-            font-weight:700;
-            border:none;
-        }
-        #noticeContent{
-            height:300px;
-            border:none;
-        }
-        .g-btn{
-            display:flex;
-            flex-flow:row nowrap;
-            justify-content:flex-end;
-        }
-        button{
-            margin-left:16px;
-            border-radius:8px;
-            padding:8px;
-            background-color:darkgreen;
-            font-weight:500;
-            font-size:20px;
-            color:#fff
-        }
-        button:first-child{
-            background-color:darkred;
-        }
-
-        /* footer */
-        .footer{
-            background-color:#ccc;
-        }
-        address{
-            padding:20px;
-            font-weight:700;
-            font-size:24px;
-            color:#fff;
-            text-align:center;
-        }
     </style>
 </head>
 <body>
-    <!-- wrap -->
+
+	<%
+		PrintWriter script = response.getWriter();
+		String userID = null;
+		if(session.getAttribute("userID") != null) {
+			// 로그인 중
+			userID = (String)session.getAttribute("userID");
+		}else{
+			// 로그오프
+			script.println("<script>");
+			script.println("alert('잘못된 접근입니다.');");
+			script.println("location.href = './main.jsp';");
+			script.println("</script>");
+		}
+	%>
     <div class="wrap">
-        <!-- header -->
         <header class="header">
             <div class="container">
-                <nav class="nav">
-                    <ul class="glb-nav">
+                <div class="nav">
+                    <ul class="gbl-nav">
                         <li class="nav-left">
                             <ul>
                                 <li class="logo"><a href="./main.jsp">게시판 만들기</a></li>
-                                <li><a href="./main.jsp">메인</a></li>
-                                <li><a href="./notice.jsp" class="active">게시판</a></li>
+                                <li><a href="./main.jsp" class="active">메인</a></li>
+                                <%
+                                	if(userID != null){                            
+                                %>
+                                <li><a href="./notice.jsp">게시판</a></li>
+                                <%
+                                	}
+                                %>
                             </ul>
                         </li>
                         <li class="nav-right">
                             <ul>
-                                <li><a href="./login.jsp">로그인</a></li>
-                                <li><a href="#" style="display:none;">로그아웃</a></li>
-                                <li><a href="./join.jsp">회원가입</a></li>
+                            	<% 
+                            		if(userID == null){
+                            			// 로그인 중 아님.
+                        		%>
+                        			<li><a href="./login.jsp">로그인</a></li>
+                                	<li><a href="./join.jsp">회원가입</a></li>
+                        		<%
+                            		}else{
+                            			// 로그인 중
+                            	%>
+                            		<li><a href="./logoutAction.jsp">로그아웃</a></li>
+                            	<%
+                            		}
+                            	%>
+                                
                             </ul>
                         </li>
                     </ul>
-                </nav>
+                </div>
             </div>
         </header>
-        <!-- main_sec -->
         <section class="sec main-sec">
             <div class="container">
                 <div class="contents clearfix">
@@ -156,29 +79,32 @@
                         <div class="n-tit">
                             제목
                             <br>
-                            <input type="text" name="noticeTit" id="noticeTit" value="문의 드립니다." disabled>
+                            <input type="text" name="noticeTit" id="noticeTit" value="문의드립니다." disabled>
                         </div>
                         <div class="n-content">
                             내용
                             <br>
                             <textarea name="noticeContent" id="noticeContent" disabled>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora non sint necessitatibus distinctio, temporibus totam nemo quibusdam repellendus et similique dolores vitae deserunt dolore voluptatibus. Libero labore ipsa laborum nobis.
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora non sint necessitatibus distinctio, temporibus totam nemo quibusdam repellendus et similique dolores vitae deserunt dolore voluptatibus. Libero labore ipsa laborum nobis.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, quam veniam explicabo atque minima accusantium consequatur magnam tempore. Blanditiis deleniti sapiente unde, et sint vel est voluptate nobis dolorum fuga!
+                                Laudantium sit consectetur libero soluta voluptas fugiat repudiandae dolor eaque, cupiditate mollitia veritatis laboriosam! Odit eveniet corrupti quasi, dolore eum sunt vitae voluptas, voluptates illo, repellendus inventore id harum sint.
                             </textarea>
+                            
                         </div>
-                    </div>
+                        
+                    </div>               
                     <div class="g-btn">
-                        <button type="button"><a href="./update.jsp">수정</a></button>
-                        <button type="button">삭제</button>
+                        <button class="button"><a href="./update.jsp">수정</a></button>  
+                        <button class="button">삭제</button>  
                     </div>
                 </div>
             </div>
         </section>
-        <!-- footer -->
         <footer class="footer">
-            <address>
-                Copyright YH
-            </address>
+            <div class="container">
+                <address>
+                    Copyright KIM
+                </address>
+            </div>
         </footer>
     </div>
 </body>
