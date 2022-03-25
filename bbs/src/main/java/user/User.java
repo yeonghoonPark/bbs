@@ -1,6 +1,7 @@
 package user;
 
 public class User {
+	
 	private String userID;
 	private String userPassword;
 	private String userName;
@@ -9,6 +10,8 @@ public class User {
 	private String userGender;
 	private String userEmail;
 	private String userPhone;
+	
+	
 	public String getUserID() {
 		return userID;
 	}
@@ -57,5 +60,6 @@ public class User {
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 	}
+	
 	
 }

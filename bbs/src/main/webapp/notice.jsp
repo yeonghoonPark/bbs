@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.io.PrintWriter" %>    
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="notice.Notice" %>
+<%@ page import="notice.NoticeDAO" %>
+<%@ page import="java.util.ArrayList" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,69 +15,79 @@
     <link rel="stylesheet" href="./css/notice.css">
     <style>
         
-
     </style>
 </head>
 <body>
-
-	<%
-		PrintWriter script = response.getWriter();
+   	<%
 		String userID = null;
-		if(session.getAttribute("userID") != null) {
-			// 로그인 중
+		if(session.getAttribute("userID") != null){
+			//로그인 중
 			userID = (String)session.getAttribute("userID");
 		}else{
-			// 로그오프
+			//로그오프
+			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('잘못된 접근입니다.');");
-			script.println("location.href = './main.jsp';");
+			script.println("alert('잘못된 접근입니다. 매인페이지로 돌아갑니다.');");
+			script.println("location.href='./main.jsp';");				
 			script.println("</script>");
 		}
+		
+		int pageNumber=1;
+		
+		if(request.getParameter("pageNumber") != null) {
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		}
+		
 	%>
     <div class="wrap">
         <header class="header">
             <div class="container">
-                <div class="nav">
+                <nav class="nav">
                     <ul class="gbl-nav">
                         <li class="nav-left">
                             <ul>
                                 <li class="logo"><a href="./main.jsp">게시판 만들기</a></li>
                                 <li><a href="./main.jsp" class="active">메인</a></li>
                                 <%
-                                	if(userID != null){                            
+                                if(userID != null){
                                 %>
-                                <li><a href="./notice.jsp">게시판</a></li>
+                                	<li><a href="./notice.jsp">게시판</a></li>
                                 <%
-                                	}
+                                }
                                 %>
                             </ul>
                         </li>
                         <li class="nav-right">
                             <ul>
-                            	<% 
-                            		if(userID == null){
-                            			// 로그인 중 아님.
-                        		%>
-                        			<li><a href="./login.jsp">로그인</a></li>
-                                	<li><a href="./join.jsp">회원가입</a></li>
-                        		<%
-                            		}else{
-                            			// 로그인 중
-                            	%>
-                            		<li><a href="./logoutAction.jsp">로그아웃</a></li>
                             	<%
-                            		}
+                            	if(userID == null){                            		
+                           		%>
+                           			<!-- 로그인 아님 -->
+	                            	<li><a href="./login.jsp">로그인</a></li>
+	                            	<li><a href="./join.jsp">회원가입</a></li>
+                            	<%	
+                            	}else{
+                           		%>
+                            		<!-- 로그인 중임 -->
+                            		<li><a href="./logoutAction.jsp">로그아웃</a></li>
+                           		<%
+                            	}
                             	%>
+                            
+                                
+                                
+                                
+                                
                                 
                             </ul>
                         </li>
                     </ul>
-                </div>
+                </nav>
             </div>
         </header>
         <section class="sec main-sec">
             <div class="container">
-                <div class="contents clearfix">
+                <div class="contents clearfix">                    
                     <div class="sec-tit">게시판</div>
                     <div class="table">
                         <div class="theader">
@@ -82,21 +96,60 @@
                             <div class="col-tit col-2">작성일</div>
                             <div class="col-tit col-2">작성자</div>
                         </div>
-                        <div class="tbody">
-                            <div class="notice-num col-2">1</div>
-                            <div class="notice-tit col-6"><a href="./read.jsp">문의드립니다.</a></div>
-                            <div class="notice-date col-2">2022-03-23</div>
-                            <div class="notice-name col-2">111111</div>
-                        </div>
-                    </div>               
-                    <button class="button"><a href="./write.jsp">글쓰기</a></button>  
+                       
+						<% 
+                        	NoticeDAO notice = new NoticeDAO();
+                          	ArrayList<Notice> list = notice.noticeList(pageNumber);
+                          	for(int idx=0;idx<list.size();idx++){
+						%>
+                      		<div class="tbody">
+                            	<div class="notice-num col-2">
+                            		<%= list.get(idx).getNoticeID() %>
+                            	</div>
+                            	<div class="notice-tit col-6">
+                            		<a href="./read.jsp?noticeID=<%=list.get(idx).getNoticeID() %>">
+                            			<%= list.get(idx).getNoticeTit() %>
+                            		</a>
+                            	</div>
+                            	<div class="notice-date col-2">
+                            		<%= list.get(idx).getNoticeDate() %>
+                            	</div>
+                            	<div class="notice-name col-2">
+                            		<%= list.get(idx).getNoticeName() %>
+                            	</div>
+	                        </div>
+						<% 
+							} 
+						%>           
+                    </div>
+                    
+                    <%
+                    	if(pageNumber != 1){
+                 	%>
+                 		<button type="button"><a href="
+                 			notice.jsp?pageNumber=<%= pageNumber-1 %>
+                 		">이전</a></button>
+                 	<% 	
+                    	}
+                    %>
+                    
+                    <% 
+                    	if(notice.nextPage(pageNumber+1)){
+                    %>	
+                    	<button type="button"><a href="
+                    		notice.jsp?pageNumber=<%= pageNumber+1 %>
+                    	">다음</a></button>
+                    <%
+                    	}
+                    %>
+                    <button type="button"><a href="./write.jsp">글쓰기</a></button>
                 </div>
             </div>
         </section>
         <footer class="footer">
             <div class="container">
                 <address>
-                    Copyright KIM
+                    Copyright CHO
                 </address>
             </div>
         </footer>

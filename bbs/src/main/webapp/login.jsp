@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<%@ page import = "java.io.PrintWriter" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,33 +8,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>웹게시판</title>
-    <link rel="stylesheet" href="./css/login.css">
-    <style>
-        
-
-        
-
-    </style>
+    <link rel="stylesheet" href="./css/login.css">    
 </head>
 <body>
-
-	<%
+	<% 
 		PrintWriter script = response.getWriter();
-		String userID = null;
-		if(session.getAttribute("userID") != null) {
-			// 로그인 중
-		script.println("<script>");
-		script.println("alert('잘못된 접근입니다.');");
-		script.println("location.href = './main.jsp';");
-		script.println("</script>");
+		if(session.getAttribute("userID") != null){
+			//로그인 중			
+			script.println("<script>");
+			script.println("alert('잘못된 접근입니다. 매인페이지로 돌아갑니다.');");
+			script.println("location.href='./main.jsp';");				
+			script.println("</script>");
 		}
 	%>
-	
-	
     <div class="wrap">
         <header class="header">
             <div class="container">
-                <div class="nav">
+                <nav class="nav">
                     <ul class="gbl-nav">
                         <li class="nav-left">
                             <ul>
@@ -46,17 +36,17 @@
                         <li class="nav-right">
                             <ul>
                                 <li><a href="./login.jsp" class="active">로그인</a></li>
-                                <li><a href="#" style="display:none">로그아웃</a></li>
+                                <li><a href="#" style="display:none;">로그아웃</a></li>
                                 <li><a href="./join.jsp">회원가입</a></li>
                             </ul>
                         </li>
                     </ul>
-                </div>
+                </nav>
             </div>
         </header>
         <section class="sec main-sec">
             <div class="container">
-                <div class="contents">
+                <div class="contents">                    
                     <div class="sec-tit">로그인</div>
                     <form action="./loginAction.jsp" method="post">
                         <div class="u-id">
@@ -76,7 +66,7 @@
         <footer class="footer">
             <div class="container">
                 <address>
-                    Copyright KIM
+                    Copyright CHO
                 </address>
             </div>
         </footer>

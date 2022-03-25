@@ -1,6 +1,7 @@
 package notice;
 
 public class Notice {
+	
 	private int noticeID;
 	private String noticeTit;
 	private String noticeContent;
@@ -37,4 +38,6 @@ public class Notice {
 	public void setNoticeDate(String noticeDate) {
 		this.noticeDate = noticeDate;
 	}
+	
+	
 }

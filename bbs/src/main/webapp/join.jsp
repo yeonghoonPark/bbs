@@ -8,15 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>웹게시판</title>
     <link rel="stylesheet" href="./css/join.css">
-    <style>
-
-    </style>
+    
 </head>
 <body>
     <div class="wrap">
         <header class="header">
             <div class="container">
-                <div class="nav">
+                <nav class="nav">
                     <ul class="gbl-nav">
                         <li class="nav-left">
                             <ul>
@@ -28,18 +26,19 @@
                         <li class="nav-right">
                             <ul>
                                 <li><a href="./login.jsp">로그인</a></li>
+                                <li><a href="#" style="display:none;">로그아웃</a></li>
                                 <li><a href="./join.jsp" class="active">회원가입</a></li>
                             </ul>
                         </li>
                     </ul>
-                </div>
+                </nav>
             </div>
         </header>
         <section class="sec main-sec">
             <div class="container">
-                <div class="contents">
+                <div class="contents">                    
                     <div class="sec-tit">회원가입</div>
-                    <form action="./joinAction.jsp" method="post">
+                    <form action="joinAction.jsp" method="post">
                         <div class="u-id not-null">
                             <input type="text" name="userID" id="userID" placeholder="아이디">
                         </div>
@@ -72,7 +71,6 @@
                             <input type="text" name="userPhone" id="userPhone" placeholder="연락처">
                         </div>
 
-
                         <div class="g-btn">
                             <input type="submit" value="전송">
                             <input type="reset" value="취소">
@@ -84,7 +82,7 @@
         <footer class="footer">
             <div class="container">
                 <address>
-                    Copyright KIM
+                    Copyright CHO
                 </address>
             </div>
         </footer>
