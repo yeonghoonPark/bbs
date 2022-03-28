@@ -8,21 +8,11 @@
 </head>
 <body>
 	<%
-		session.invalidate();		
+		session.invalidate();
 	%>
 	<script>
-	alert('로그아웃 합니다.');
-	location.href='./main.jsp';
+		alert('로그아웃 되었습니다.');
+		location.href="./main.jsp";
 	</script>
-	
 </body>
 </html>
-
-
-
-
-
-
-
-
-
