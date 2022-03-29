@@ -7,10 +7,12 @@
 
 <!-- class를 자바빈즈 사용함, 이름 id설정한 이름 -->
 <jsp:useBean id="bbs" class="bbs.Bbs" scope="page" />
-<!-- write 페이지에서 받아온 bbsTitle Bbs.bbsTitle에 저장 -->
+<!-- update 페이지에서 받아온 bbsTitle Bbs.bbsTitle에 저장 -->
 <jsp:setProperty name="bbs" property="bbsTitle" />
-<!-- write 페이지에서 받아온 bbsContent Bbs.bbsContent에 저장 -->
+<!-- update 페이지에서 받아온 bbsContent Bbs.bbsContent에 저장 -->
 <jsp:setProperty name="bbs" property="bbsContent" />
+<!-- update 페이지에서 받아온 bbsID Bbs.bbsID에 저장 -->
+<jsp:setProperty name="bbs" property="bbsID" /> 
 
     
 <!DOCTYPE html>
@@ -48,14 +50,14 @@
 		
 				BbsDAO bbsDAO = new BbsDAO();
 				
-				int result = bbsDAO.write(bbs.getBbsTitle(),userID,bbs.getBbsContent());
+				int result = bbsDAO.update(bbs.getBbsTitle(),userID,bbs.getBbsContent(),bbs.getBbsID());
 				script.println("<script>");
 				
 				if(result == -1){
-					script.println("alert('기록실패')");
+					script.println("alert('수정실패')");
 					script.println("location.href='./main.jsp'");
 				}else{				
-					script.println("alert('기록성공')");
+					script.println("alert('수정완료')");
 					script.println("location.href='./bbs.jsp'");
 				}
 				

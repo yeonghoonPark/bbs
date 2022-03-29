@@ -1,25 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- 부르스트랩 3.4v -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
 <title>JSP를 이용한 게시판 만들기</title>
 
 </head>
 <body>
 	<%
-		// 로그인상태 확인
+		PrintWriter script=response.getWriter();
+		//로그인상태 확인
 		String userID = null;
 		if(session.getAttribute("userID") != null){
-			userID = (String)session.getAttribute("userID");
+			userID=(String)session.getAttribute("userID");
+		}
+		if(userID == null){
+			script.println("<script>");
+			script.println("alert('잘못된 접근입니다.')");
+			script.println("location.href='./login.jsp'");
+			script.println("</script>");
 		}
 	%>
-
 	<section class="wrap">
-		<!-- 공통 영역 -->
+		<!-- 공통 영역  -->
 		<header>
 			<nav class="navbar navbar-default">
 				<div class="navbar-header">
@@ -42,43 +48,38 @@
 							<a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
 								aria-expanded="false">접속하기<span class="caret"></span></a>
-							
-							<% 
-								if(userID == null){
+							<%
+							if(userID == null){
 							%>	
-								
-							<!-- 로그아웃 상태 -->	
 							<ul class="dropdown-menu">
 								<li class="active"><a href="./login.jsp">로그인</a></li>
 								<li><a href="./join.jsp">회원가입</a></li>
 							</ul>
-							<% }else {%>
-							
-							<!-- 로그인 상태 -->
+							<%}else{ %>
 							<ul class="dropdown-menu">
-								<li class="active"><a href="./logoutAction.jsp">로그아웃</a></li>
+								<li class="active"><a href="./logoutAction.jsp">로그아웃</a></li>								
 							</ul>
-							<% }%>
-							
+							<%} %>
 						</li>
 					</ul>
 				</div>
 			</nav>
 		</header>
-		
+	
+	
 		<!-- 페이지별 컨텐츠 영역 시작 -->
 		<section>
-			<!-- 글쓰기 양식 -->
+			<!-- 로그인 양식 -->
 			<div class="container">
 				<div class="col-lg-12">
-					<div class="jumbotron" style="margin-top:20px;padding-top:30px;">
+					<div class="jumbotron" style="margin-top:20px;padding-top:30px">
 						<form method="post" action="./writeAction.jsp">
-							<h2 style="text-align:center;">글쓰기 양식</h2>
+							<h2 style="text-align:center">글쓰기 양식</h2>		
 							<div class="form-group">
 								<input type="text" placeholder="제목" class="form-control" name="bbsTitle">
 							</div>
 							<div class="form-group">
-								<input type="password" placeholder="글내용" class="form-control" name="bbsContent">
+								<input type="text" placeholder="글내용" class="form-control" name="bbsContent">
 							</div>
 							<input type="submit" value="글저장" class="btn btn-primary form-control">
 						</form>
@@ -86,13 +87,11 @@
 				</div>
 			</div>
 		</section>
+		
 	</section>
-<!-- jQuery -->
+	
+	
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<!-- 부르스트랩 3.4v -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
-

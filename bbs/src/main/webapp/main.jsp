@@ -4,22 +4,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- 부르스트랩 3.4v -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
 <title>JSP를 이용한 게시판 만들기</title>
 
 </head>
 <body>
-	<%
-		// 로그인상태 확인
+	<% 
+		//로그인상태 확인
 		String userID = null;
 		if(session.getAttribute("userID") != null){
-			userID = (String)session.getAttribute("userID");
+			userID=(String)session.getAttribute("userID");
 		}
 	%>
 
 	<section class="wrap">
-		<!-- 공통 영역 -->
+		<!-- 공통 영역  -->
 		<header>
 			<nav class="navbar navbar-default">
 				<div class="navbar-header">
@@ -43,20 +42,21 @@
 								data-toggle="dropdown" role="button" aria-haspopup="true"
 								aria-expanded="false">접속하기<span class="caret"></span></a>
 							
-							<% 
+							<%
 								if(userID == null){
-							%>	
+							%>								
 								
-							<!-- 로그아웃 상태 -->	
+							<!-- 로그아웃상태 -->	
 							<ul class="dropdown-menu">
 								<li class="active"><a href="./login.jsp">로그인</a></li>
 								<li><a href="./join.jsp">회원가입</a></li>
 							</ul>
-							<% }else {%>
+							
+							<%} else {%>
 							
 							<!-- 로그인 상태 -->
 							<ul class="dropdown-menu">
-								<li class="active"><a href="./logoutAction.jsp">로그아웃</a></li>
+								<li class="active"><a href="./logoutAction.jsp">로그아웃</a></li>								
 							</ul>
 							<% }%>
 							
@@ -65,18 +65,17 @@
 				</div>
 			</nav>
 		</header>
-		
+	
+	
 		<!-- 페이지별 컨텐츠 영역 시작 -->
 		<section>
 			메인페이지
 		</section>
+		
 	</section>
-<!-- jQuery -->
+	
+	
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<!-- 부르스트랩 3.4v -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
-
-
-

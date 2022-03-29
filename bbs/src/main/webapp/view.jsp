@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="bbs.BbsDAO" %>
+<%@ page import="bbs.Bbs" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +13,34 @@
 
 </head>
 <body>
+	<%
+		PrintWriter script=response.getWriter();
+		//로그인상태 확인
+		String userID = null;
+		if(session.getAttribute("userID") != null){
+			userID=(String)session.getAttribute("userID");
+		}
+		
+		//넘어온 bbsID를 초기화하고 request가 존재한다면 bbsID로 셋팅
+		int bbsID = 0;
+		if(request.getParameter("bbsID") != null){
+			bbsID = Integer.parseInt(request.getParameter("bbsID"));
+		}
+		
+		
+		//존재하지않는 또는 잘못된 접근처리
+		if(bbsID == 0 || userID == null){
+			script.println("<script>");
+			script.println("alert('잘못된 접근입니다.')");
+			script.println("location.href='bbs.jsp'");
+			script.println("</script>");
+		}
+		
+		//bbs인스턴스 생성
+		Bbs bbs = new BbsDAO().getBbs(bbsID);
+		
+		
+	%>
 	<section class="wrap">
 		<!-- 공통 영역  -->
 		<header>
@@ -33,15 +65,18 @@
 							<a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
 								aria-expanded="false">접속하기<span class="caret"></span></a>
-								
+							<%
+							if(userID == null){
+							%>	
 							<ul class="dropdown-menu">
 								<li class="active"><a href="./login.jsp">로그인</a></li>
 								<li><a href="./join.jsp">회원가입</a></li>
 							</ul>
-							
-							<ul class="dropdown-menu" style="display:none">
+							<%}else{ %>
+							<ul class="dropdown-menu">
 								<li class="active"><a href="./logoutAction.jsp">로그아웃</a></li>								
 							</ul>
+							<%} %>
 						</li>
 					</ul>
 				</div>
@@ -51,20 +86,30 @@
 	
 		<!-- 페이지별 컨텐츠 영역 시작 -->
 		<section>
-			<!-- 로그인 양식 -->
+			<!-- 글읽기 양식 -->
 			<div class="container">
 				<div class="col-lg-12">
 					<div class="jumbotron" style="margin-top:20px;padding-top:30px">
-						<form method="post" action="./loginAction.jsp">
-							<h2 style="text-align:center">로그인 화면	</h2>		
-							<div class="form-group">
-								<input type="text" placeholder="아이디" class="form-control" name="userID">
-							</div>
-							<div class="form-group">
-								<input type="password" placeholder="패스워드" class="form-control" name="userPassword">
-							</div>
-							<input type="submit" value="로그인" class="btn btn-primary form-control">
-						</form>
+						<h2 style="text-align:center">게시판 글 보기</h2>		
+						<div>
+							<span>제목</span>
+							<span><%= bbs.getBbsTitle() %></span>
+							<br>
+							<span>내용</span>
+							<span><%= bbs.getBbsContent() %></span>
+							<br>
+							<span>작성자</span>
+							<span><%= bbs.getUserID() %></span>
+							<br>
+							<span>작성일자</span>
+							<span><%= bbs.getBbsDate() %></span>
+							<br>
+						</div>
+					</div>
+					<div class="button-group">
+						<a href="./bbs.jsp" class="btn btn-success">목록</a>
+						<a href="./deleteAction.jsp?bbsID=<%= bbsID %>" class="btn btn-success">삭제</a>
+						<a href="./update.jsp?bbsID=<%= bbsID %>" class="btn btn-success">수정</a>						
 					</div>
 				</div>
 			</div>
