@@ -40,7 +40,8 @@
 							</ul>
 							
 							<ul class="dropdown-menu" style="display:none">
-								<li class="active"><a href="./logoutAction.jsp">로그아웃</a></li>								
+								<li class="active"><a href="./logoutAction.jsp">로그아웃</a></li>
+								<li><a href="./myPage.jsp">마이페이지</a></li>								
 							</ul>
 						</li>
 					</ul>

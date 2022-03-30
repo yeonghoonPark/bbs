@@ -43,7 +43,7 @@ public class BbsDAO {
 	
 	//다음에 들어갈 문서번호 구하기
 	public int getNext() {
-		String SQL = "SELECT bbsID FROM bbs WHERE bbsAvailable=1 ORDER BY bbsID DESC";
+		String SQL = "SELECT bbsID FROM bbs ORDER BY bbsID DESC";
 		try {
 			PreparedStatement pstmt=conn.prepareStatement(SQL);
 			rs=pstmt.executeQuery();
@@ -76,14 +76,33 @@ public class BbsDAO {
 		return -1;//데이터베이스 오류
 	}
 	
+	//레코드의 개수
+	public int recordCount() {
+		String SQL = "SELECT * FROM bbs WHERE bbsAvailable=1";
+		try {
+			PreparedStatement pstmt=conn.prepareStatement(SQL);				
+			rs=pstmt.executeQuery();
+			int recordCount = 1;
+			while(rs.next()) {
+				recordCount++;
+			}
+			return recordCount;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 	
 	//bbs목록 가져오기 메소드
 	public ArrayList<Bbs> getList(int pageNumber){
-		String SQL = "SELECT * FROM bbs WHERE bbsID<? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+		//String SQL = "SELECT * FROM bbs WHERE bbsID<? AND bbsAvailable = 1";
+		String SQL = "SELECT * FROM bbs WHERE bbsAvailable = 1 ORDER BY bbsID DESC LIMIT ?,10";                        
 		ArrayList<Bbs> list = new ArrayList<Bbs>();
 		try {
 			PreparedStatement pstmt=conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext() - (pageNumber-1)*10);
+			//pstmt.setInt(1, getNext() - (pageNumber-1)*10);
+			pstmt.setInt(1, recordCount() - (recordCount()-(pageNumber-1)*10));
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				Bbs bbs = new Bbs();
@@ -104,10 +123,13 @@ public class BbsDAO {
 	
 	//페이지 처리 메서드
 	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM bbs WHERE bbsID<? AND bbsAvailable = 1";
+		//String SQL = "SELECT * FROM bbs WHERE bbsID<? AND bbsAvailable = 1";
+		String SQL = "SELECT * FROM bbs WHERE bbsAvailable = 1 ORDER BY bbsID DESC LIMIT ?,10";
+		
 		try {
 			PreparedStatement pstmt=conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext() - (pageNumber-1)*10);
+			//pstmt.setInt(1, getNext() - (pageNumber-1)*10);
+			pstmt.setInt(1, recordCount() - (recordCount()-(pageNumber-1)*10));
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				return true;
@@ -117,6 +139,23 @@ public class BbsDAO {
 		}
 		return false;
 	}
+	
+	//마지막 페이지 번호 메서드
+		public int getPages() {
+			String SQL = "SELECT * FROM bbs WHERE bbsAvailable=1";
+			try {
+				PreparedStatement pstmt=conn.prepareStatement(SQL);				
+				rs=pstmt.executeQuery();
+				int recordCount = 0;
+				while(rs.next()) {
+					recordCount++;
+				}
+				return (recordCount-1) / 10 + 1;
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			return -1;
+		}
 	
 	//문서 읽기
 	public Bbs getBbs(int bbsID) {
@@ -186,23 +225,6 @@ public class BbsDAO {
 			e.printStackTrace();
 		}
 		return -1;//데이터베이스 오류
-	}
-	
-	//마지막 페이지 번호 메서드
-	public int getPages() {
-		String SQL = "SELECT * FROM bbs WHERE bbsAvailable=1";
-		try {
-			PreparedStatement pstmt=conn.prepareStatement(SQL);
-			rs=pstmt.executeQuery();
-			int recordCount = 0;
-			while(rs.next()) {
-				recordCount++;
-			}
-			return recordCount / 10 + 1;
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return -1;
 	}
 	
 	

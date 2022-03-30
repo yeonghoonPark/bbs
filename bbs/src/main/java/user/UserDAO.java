@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import bbs.Bbs;
+
 public class UserDAO {
 
 	private Connection conn;
@@ -64,5 +66,63 @@ public class UserDAO {
 		}
 		return -1;
 	}
+	
+	//-------------------------- 회원정보 조회 -------------------------
+	
+	public User getUser(String userID) {
+		String SQL = "SELECT * FROM user WHERE userID = ?";
+		try {
+			PreparedStatement pstmt=conn.prepareStatement(SQL);
+			pstmt.setString(1,userID);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				User user = new User();
+				user.setUserID(rs.getString(1));
+				user.setUserPassword(rs.getString(2));
+				user.setUserName(rs.getString(3));
+				user.setUserGender(rs.getString(4));
+				user.setUserEmail(rs.getString(5));
+				return user;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}   	
+	
+
+	//---------------------------- 회원 탈퇴 ---------------------
+	public int deleteUser(String userID,String userPassword) {
+		String SQL = "DELETE FROM user WHERE userID=? AND userPassword=?";
+		try {
+			PreparedStatement pstmt=conn.prepareStatement(SQL);
+			pstmt.setString(1,userID);
+			pstmt.setString(2,userPassword);
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	//---------------------------- 패스워드 변경 ---------------------
+	public int updateUser(String userID,String userPassword) {
+		String SQL = "UPDATE user SET userPassword=? WHERE userID=?";
+		try {
+			PreparedStatement pstmt=conn.prepareStatement(SQL);
+			pstmt.setString(1,userPassword);
+			pstmt.setString(2,userID);
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	
+	
+	
+	
+	
 	
 }
