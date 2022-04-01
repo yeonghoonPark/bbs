@@ -1,0 +1,17 @@
+@import 'mixinFunction.scss';
+
+h1{
+    @include 큰제목();
+    font-size:$작은제목크기;
+}
+h2{
+    @extend h1;
+    text-decoration:$밑줄;
+}
+
+.sec.main{
+    p{
+        @include 본문(#f0f);
+    }
+}
+

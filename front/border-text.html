@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./border.css">
+    <title>Document</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;}
+        a{text-decoration:none;color:inherit;}
+        ul,ol,li{list-style:none;}
+        .wrap{
+            max-width:1200px;
+            margin:0 auto;
+        }
+        header h1{
+            text-align:center;
+            padding:60px 0;
+            font-weight:900;
+            font-size:60px;
+        }
+
+        .notice-h{
+            border-bottom:1px solid #000;
+        }
+
+        .notice-h ul,.notice-b ul{
+            display:flex;
+            flex-flow:row nowrap;
+            justify-content:space-evenly;
+            align-items:center;
+            padding:12px;
+        }
+        .notice-h ul li{
+            font-weight:500;
+            font-size: 24px;
+        }
+        .notice-b ul li:nth-child(1){
+            margin-left:240px;
+            flex:1;
+        }
+        .notice-b ul li:nth-child(2){
+            flex:1;
+        }
+        .notice-b ul li:nth-child(3){
+            flex:1;
+        }
+        .w-box{
+            display:flex;
+            justify-content:flex-end;
+            padding:12px;
+        }
+        .w-box a{
+            padding:12px;
+            background-color:lightblue;
+            border:2px solid #000;
+            border-radius:12px;
+        }
+        footer{
+            text-align:center;
+            margin:60px;
+        }
+
+    </style>
+</head>
+<body>
+    <section class="wrap">
+		<header>
+			<div class="container">
+				<h1>게시판</h1>
+			</div>
+		</header>
+		<section class="sec notice">
+			<div class="container">
+				<div class="notice-h">
+                    <ul>
+                        <li>회원번호</li>
+                        <li>제목</li>
+                        <li>내용</li>
+                    </ul>
+                </div>
+                <div class="notice-b">
+                    <ul>
+                        <li>회원번호 자리1111</li>
+                        <li>제목 자리1111</li>
+                        <li><a href="./view.jsp">내용 자리11111</a></li>
+                    </ul>
+                    <ul>
+                        <li>2222</li>
+                        <li>제목 자리2222</li>
+                        <li><a href="./view.jsp">내용 자리22222</a></li>
+                    </ul>
+                    <ul>
+                        <li>3</li>
+                        <li>제목3</li>
+                        <li><a href="./view.jsp">내용 자리33333</a></li>
+                    </ul>
+                </div>
+			</div>
+		</section>
+        <div class="w-box">
+            <a href="./write.jsp">글쓰기</a>
+        </div>
+        <footer>
+			<div class="container">
+				<address>Copyright Park</address>
+			</div>
+		</footer>
+	</section>
+</body>
+</html>

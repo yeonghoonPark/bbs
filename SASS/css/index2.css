@@ -1,0 +1,15 @@
+h1, h2 {
+  font-weight: 900;
+  font-size: 24px;
+  color: darkviolet;
+  text-align: center;
+  font-size: 20px;
+}
+
+h2 {
+  text-decoration: underline;
+}
+
+.sec.main p {
+  color: #f0f;
+}/*# sourceMappingURL=index2.css.map */

@@ -1,0 +1,50 @@
+// 변수
+$검정색:#000;
+$흰색:#fff;
+$fnSize:100px;
+$titCenter:center;
+$너비:500px;
+$맞춤:0 auto;
+
+// 함수
+@mixin functionName() {
+    font-size:$fnSize;
+    background-color:$흰색;
+    color:$검정색;
+}
+
+
+body{
+    background-color:$검정색;
+    color:$흰색;
+}
+
+h1{
+    font-size:$fnSize - 50px;
+}
+body{
+    >p{
+        text-align:$titCenter;
+        width:$너비;
+        margin:$맞춤;
+    }
+}
+.navbar{
+    >p{
+        color:#f00;
+    }
+}
+.navbar{
+    >p{&:hover{
+            color:$흰색;
+        }
+    }
+}
+
+h2{
+    @extend h1;
+}
+
+h3{
+    @include functionName();
+}
